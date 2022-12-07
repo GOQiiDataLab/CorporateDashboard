@@ -7,6 +7,7 @@ import Sleep
 import HRA
 import Karma
 import User_Information
+import HealthAwareness
 
 # init app
 app = Flask(__name__)
@@ -22,12 +23,14 @@ def get():
     hra = HRA.hra()
     karma = Karma.karma()
     player_count, top_active_players = User_Information.user_information()
+    health_awareness = HealthAwareness.health()
 
     main_return = {'activity_time': activity_time, 'distance_walked': distance_walked, 'water_card': water_card,
                    'water_KPI': water_kpi, 'habits': habits, 'sleep': sleep, 'hra': hra, 'karma': karma,
                    'average_steps': average_steps, 'week_over_week': week_over_week,
                    'steps_distribution': steps_distribution, 'top_activities': top_activities,
-                   'player_count': player_count, 'top_active_players': top_active_players}
+                   'player_count': player_count, 'top_active_players': top_active_players,
+                   'health_awareness': health_awareness}
 
     return main_return
 
