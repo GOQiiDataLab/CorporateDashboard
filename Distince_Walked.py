@@ -21,7 +21,7 @@ def distance_walked():
                     AND cr.clanId IN (16069, 16071, 16072, 16073, 16075, 16077, 17489)
                     AND cr.isDeleted = "N"
                 WHERE 
-                    logDate >= (NOW()-INTERVAL 4 MONTH) AND logDate <= NOW()
+                    logDate >= (NOW()-INTERVAL 4 MONTH) AND logDate < NOW() - 1  
                  '''
 
         cursor.execute(query1)
@@ -53,13 +53,20 @@ def distance_walked():
             - pd.to_timedelta(14, unit='w'))].groupby('Week').agg({'Steps': 'sum'}).reset_index()
 
         steps = int((dataframe[dataframe['Log Date'] >= np.datetime64(
-            datetime.datetime.now().date()-pd.to_timedelta(6, unit='d'))]['Steps']).sum())
+            datetime.datetime.now().date()-pd.to_timedelta(1, unit='w'))]['Steps']).sum())
 
         avg_steps = np.round(steps / dataframe[dataframe['Log Date'] >= np.datetime64(
-            datetime.datetime.now().date()-pd.to_timedelta(6, unit='d'))]['UserID'].nunique(), 2)
+            datetime.datetime.now().date()-pd.to_timedelta(1, unit='w'))]['UserID'].nunique(), 2)
 
-        return str(steps) + ' kms', str(avg_steps) + ' kms', km_walked_week_over_week.to_json(), \
-               steps_distribution.to_json()
+        steps_last_week = dataframe[(dataframe['Log Date'] >= np.datetime64(datetime.datetime.now().date()-pd.to_timedelta(2, unit='w')))
+            & (dataframe['Log Date'] < np.datetime64(datetime.datetime.now().date()-pd.to_timedelta(1, unit='w')))]['Steps'].sum()
+
+        avg_steps_last_week = np.round(steps_last_week / dataframe[
+        (dataframe['Log Date'] >= np.datetime64(datetime.datetime.now().date() - pd.to_timedelta(2, unit='w')))
+        & (dataframe['Log Date'] < np.datetime64(datetime.datetime.now().date() - pd.to_timedelta(1, unit='w')))]['UserID'].nunique(), 2)
+
+        return str(steps) + ' kms', str(avg_steps) + ' kms', str(avg_steps_last_week) + ' kms', \
+               km_walked_week_over_week.to_json(), steps_distribution.to_json()
 
     except Exception as exc:
         print(exc)
