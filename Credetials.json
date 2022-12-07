@@ -1,0 +1,8 @@
+{
+  "username": "nehal",
+  "password": "uU8TWiEpowgQ2RVg",
+  "server_goqii": "rpt-mum-cluster.cluster-ro-c5r9bmxjl1yr.ap-south-1.rds.amazonaws.com",
+  "goqii_database": "goqii_goqii",
+  "server_store": "storevertical.cluster-ro-c5r9bmxjl1yr.ap-south-1.rds.amazonaws.com",
+  "store_database": "goqii_storevertical"
+}
