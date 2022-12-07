@@ -13,7 +13,7 @@ import HealthAwareness
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/getdata', methods=['GET', 'POST'])
 def get():
     activity_time, top_activities = Activity.activity()
     distance_walked, average_steps, avg_steps_last_week, week_over_week, steps_distribution = Distince_Walked.distance_walked()
