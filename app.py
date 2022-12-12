@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request,make_response
 import Activity
 import Distince_Walked
 import Water_Intake
@@ -8,13 +8,17 @@ import HRA
 import Karma
 import User_Information
 import HealthAwareness
-
+from flask import jsonify
 # init app
 app = Flask(__name__)
 
-
-@app.route('/getdata', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def get():
+    res = make_response("Success", 200)
+    res.headers['Access-Control-Allow-Origin'] = "*"
+    return res
+@app.route('/getdata', methods=['GET', 'POST'])
+def getdata():
     activity_time, top_activities = Activity.activity()
     distance_walked, average_steps, avg_steps_last_week, week_over_week, steps_distribution = Distince_Walked.distance_walked()
     water_card, water_kpi = Water_Intake.water_intake()
@@ -32,8 +36,10 @@ def get():
                    'player_count': player_count, 'top_active_players': top_active_players,
                    'health_awareness': health_awareness, 'sleep_quality': sleep_quality,
                    'avg_steps_last_week': avg_steps_last_week}
+    res = make_response(main_return, 200)
+    res.headers['Access-Control-Allow-Origin'] = "*"
+    return res
 
-    return main_return
 
 
 if __name__ == '__main__':
