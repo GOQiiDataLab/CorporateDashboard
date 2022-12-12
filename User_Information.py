@@ -50,8 +50,14 @@ def user_information():
         new_elites = dataframe[dataframe['Lifestyle'] == 'elite'].nlargest(3, 'Lifestyle_Change_Date')[['User_Image', 'Player_Name', 'Lifestyle', 'Clan_Name', 'Lifestyle_Change_Date']]
         consistent_elites = dataframe[dataframe['Lifestyle'] == 'elite'].nlargest(3, 'Days_in_Elite')[['User_Image', 'Player_Name', 'Lifestyle', 'Clan_Name', 'Lifestyle_Change_Date']]
 
+        clan_player_count = dataframe.groupby('Clan_Name').UserID.count()
+        elite_perc = dataframe.groupby('Clan_Name').apply(lambda x: (x[x['Lifestyle'] == 'elite'].count()/x['UserID'].count())*100)['UserID'].reset_index()
+        best_performing_clan = elite_perc[elite_perc['UserID'] == elite_perc['UserID'].max()].values[0][0]
+        under_performing_clan = elite_perc[elite_perc['UserID'] == elite_perc['UserID'].min()].values[0][0]
 
-        return str(player_count), most_active_players.to_json(), lifestyle_players.to_json(), str(active_24_hours), new_elites.to_json(), consistent_elites.to_json()
+        return str(player_count), most_active_players.to_json(), lifestyle_players.to_json(), str(active_24_hours), \
+               new_elites.to_json(), consistent_elites.to_json(), clan_player_count.to_json(), best_performing_clan, \
+               under_performing_clan
 
     except Exception as exc:
         print(exc)
