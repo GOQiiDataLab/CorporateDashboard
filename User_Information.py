@@ -1,6 +1,7 @@
 import Database
 import pandas as pd
 import numpy as np
+import datetime
 
 
 def user_information():
@@ -16,6 +17,7 @@ def user_information():
                     rd.lifestyle AS Lifestyle,
                     rd.rollingPoints AS Rolling_Points,
                     rd.lifeStyleLastChangeDate AS Lifestyle_Change_Date,
+                    DATEDIFF(NOW(), rd.lifeStyleLastChangeDate) AS Days_in_Elite,
                     rd.lastActiveDate AS Last_Active_Date, 
                     c.clanId AS ClanID,
                     c.clanName AS Clan_Name 
@@ -38,12 +40,19 @@ def user_information():
 
         dataframe = pd.DataFrame(data=ready_data, columns=['UserID', 'Player_Name',
                                 'User_Image', 'Lifestyle', 'Rolling_Points', 'Lifestyle_Change_Date',
-                                'Last_Active_Date', 'ClanID', 'Clan_Name'])
+                                'Days_in_Elite', 'Last_Active_Date', 'ClanID', 'Clan_Name'])
 
         player_count = dataframe.shape[0]
         most_active_players = dataframe.nlargest(3, 'Rolling_Points')[['User_Image', 'Player_Name', 'Lifestyle']]
+        lifestyle_players = dataframe.groupby('Lifestyle')['UserID'].count().reset_index()
+        active_24_hours = dataframe[dataframe['Last_Active_Date'] >
+                    np.datetime64(datetime.datetime.now().date()-pd.to_timedelta(1, unit='d'))]['UserID'].count()
+        new_elites = dataframe[dataframe['Lifestyle'] == 'elite'].nlargest(3, 'Lifestyle_Change_Date')[['User_Image', 'Player_Name', 'Lifestyle', 'Clan_Name', 'Lifestyle_Change_Date']]
+        consistent_elites = dataframe[dataframe['Lifestyle'] == 'elite'].nlargest(3, 'Days_in_Elite')[['User_Image', 'Player_Name', 'Lifestyle', 'Clan_Name', 'Lifestyle_Change_Date']]
 
-        return player_count, most_active_players.to_json()
+
+        return str(player_count), most_active_players.to_json(), lifestyle_players.to_json(), str(active_24_hours), new_elites.to_json(), consistent_elites.to_json()
 
     except Exception as exc:
         print(exc)
+
