@@ -43,7 +43,8 @@ def getdata():
                    'new_elites': new_elites, 'consistent_elites': consistent_elites,
                    'clan_player_count': clan_player_count, 'best_performing_clan': best_performing_clan,
                    'under_performing_clan': under_performing_clan, 'health_awareness': health_awareness,
-                   'sleep_quality': sleep_quality, 'avg_steps_last_week': avg_steps_last_week
+                   'sleep_quality': sleep_quality,
+                   'avg_steps_last_week': avg_steps_last_week
                    }
 
     print(main_return)
