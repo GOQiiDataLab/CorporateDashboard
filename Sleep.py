@@ -87,11 +87,13 @@ def sleep():
         else:
             m = minutes
 
-        sleep_quality_dict = {}
-        for i in range(len(sleep_quality)):
-            sleep_quality_dict[sleep_quality['sleepObservation'][i]] = str(sleep_quality['user_count'][i])
+        # sleep_quality_dict = {}
+        # for i in range(len(sleep_quality)):
+        #     sleep_quality_dict[sleep_quality['sleepObservation'][i]] = str(sleep_quality['user_count'][i])
+        #
+        # return (h + "h" + " " + m + "m"), json.dumps(sleep_quality_dict)
 
-        return (h + "h" + " " + m + "m"), json.dumps(sleep_quality_dict)
+        return (h + "h" + " " + m + "m"), sleep_quality.to_json()
 
     except Exception as exc:
         print(exc)
