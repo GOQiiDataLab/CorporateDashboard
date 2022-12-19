@@ -36,7 +36,7 @@ def health():
         health_awareness = health_awareness[health_awareness['Type'].isin(['sleep', 'nutrition', 'fitness',
                                                                          'cognition'])]
         health_awareness['Type'].replace('cognition', 'meditation', inplace=True)
-
+        health_awareness.sort_values(by=['UserID'],ascending=False,inplace=True)
         return health_awareness.to_json()
 
     except Exception as exc:
