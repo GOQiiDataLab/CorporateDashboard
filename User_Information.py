@@ -30,7 +30,7 @@ def user_information():
                     INNER JOIN goqii_clan c
                     ON cr.clanId = c.clanId
                 WHERE 
-                    c.clanId IN (16069, 16071, 16072, 16073, 16075, 16077, 17489)
+                    c.clanId IN (19388, 19389, 19390, 19391,19392,19396,19395)
                     AND rd.isDeleted = "N"
                     AND cr.isDeleted = "N"
                  '''

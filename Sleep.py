@@ -28,7 +28,7 @@ def sleep():
                         ON sd.userid = cr.friendId
                     WHERE
                         sd.logDate >= (NOW()-INTERVAL 7 DAY)
-                        AND cr.clanId IN (16069, 16071, 16072, 16073, 16075, 16077, 17489)
+                        AND cr.clanId IN (19388, 19389, 19390, 19391,19392,19396,19395)
                         AND sd.isDeleted = "N"
                     UNION ALL 
                     SELECT
