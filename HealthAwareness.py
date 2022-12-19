@@ -19,7 +19,7 @@ def health():
                     goqii_user_lifestyle_task_log t
                     INNER JOIN goqii_friend_user_clan_rel cr
                     ON t.userid = cr.friendId
-                    AND cr.clanId IN (19388, 19389, 19390, 19391,19392,19396,19395)
+                    AND cr.clanId IN (19388, 19389, 19390, 19391,19392,19396,19395) 
                     AND cr.isDeleted = "N"
                     AND t.isDeleted = "N"
                 WHERE
