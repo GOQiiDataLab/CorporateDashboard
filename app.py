@@ -9,6 +9,7 @@ import Karma
 import User_Information
 import HealthAwareness
 import Food
+import json
 from flask import jsonify
 # init app
 app = Flask(__name__)
@@ -35,8 +36,8 @@ def getdata():
                     under_performing_clan = User_Information.user_information()
     health_awareness = HealthAwareness.health()
     healthy_perc = int(Food.getHealthyPercentage())
-    h_per = {'healthy_perc': str(healthy_perc), 'unhealthy_perc': str(100-healthy_perc)}
-
+    h_per = {"healthy_perc": str(healthy_perc), "unhealthy_perc": str(100-healthy_perc)}
+    json_h_perc = json.dumps(h_per)
     main_return = {'activity_time': activity_time, 'distance_walked': distance_walked, 'water_card': water_card,
                    'water_KPI': water_kpi, 'habits': habits, 'avg_sleep': avg_sleep, 'hra': hra, 'karma': karma,
                    'average_steps': average_steps, 'week_over_week': week_over_week,
@@ -48,7 +49,7 @@ def getdata():
                    'under_performing_clan': under_performing_clan, 'health_awareness': health_awareness,
                    'sleep_quality': sleep_quality,
                    'avg_steps_last_week': avg_steps_last_week,
-                   'healthy_percentage': h_per
+                   'healthy_percentage': json_h_perc
                    }
 
     print(main_return)
@@ -75,7 +76,7 @@ def user_information():
 
 if __name__ == '__main__':
     #app.run(debug=True)
-    app.run(debug=True,host='0.0.0.0', port=81
+    app.run(debug=True,host='0.0.0.0', port=80
             )
 
 # Things let to code:
