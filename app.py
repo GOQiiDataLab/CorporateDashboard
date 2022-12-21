@@ -8,6 +8,7 @@ import HRA
 import Karma
 import User_Information
 import HealthAwareness
+import Food
 from flask import jsonify
 # init app
 app = Flask(__name__)
@@ -33,6 +34,7 @@ def getdata():
                     consistent_elites, clan_player_count, best_performing_clan, \
                     under_performing_clan = User_Information.user_information()
     health_awareness = HealthAwareness.health()
+    healthy_perc = Food.getHealthyPercentage()
 
     main_return = {'activity_time': activity_time, 'distance_walked': distance_walked, 'water_card': water_card,
                    'water_KPI': water_kpi, 'habits': habits, 'avg_sleep': avg_sleep, 'hra': hra, 'karma': karma,
@@ -44,7 +46,8 @@ def getdata():
                    'clan_player_count': clan_player_count, 'best_performing_clan': best_performing_clan,
                    'under_performing_clan': under_performing_clan, 'health_awareness': health_awareness,
                    'sleep_quality': sleep_quality,
-                   'avg_steps_last_week': avg_steps_last_week
+                   'avg_steps_last_week': avg_steps_last_week,
+                   'healthy_percentage': healthy_perc
                    }
 
     print(main_return)
@@ -69,9 +72,9 @@ def user_information():
 
     return main_return
 
-
 if __name__ == '__main__':
-    app.run(debug=True)
+
+    app.run(debug=True,host='0.0.0.0', port=80)
 
 # Things let to code:
 # 2. Quality of nutrition
