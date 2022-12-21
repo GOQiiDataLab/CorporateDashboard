@@ -39,10 +39,10 @@ def getHealthyPercentage():
         cursor = db.cursor()
 
         query1 = '''
-                SELECT
-                Round(
-                sum(if(f.healthmeterCategory='healthy',1,0)) ,
-                sum(if(f.healthmeterCategory='unhealthy'||f.healthmeterCategory='healthy',1,0))) healthy_perc
+                select
+                ROUND( (sum(if(f.healthmeterCategory='healthy',1,0)) /
+                (sum(if(f.healthmeterCategory='healthy',1,0)) +
+                sum(if(f.healthmeterCategory='unhealthy',1,0)))  )  * 100,2) as health_perc
                 FROM
                     goqii_log_food f
                     INNER JOIN goqii_friend_user_clan_rel cr
@@ -53,6 +53,7 @@ def getHealthyPercentage():
                     AND f.isDeleted = "N"
                 WHERE	
                     f.logDate >= (NOW()-INTERVAL 7 DAY)
+    ;
                  '''
 
         cursor.execute(query1)
