@@ -36,9 +36,17 @@ def health():
         health_awareness = health_awareness[health_awareness['Type'].isin(['sleep', 'nutrition', 'fitness',
                                                                          'cognition'])]
         health_awareness['Type'].replace('cognition', 'meditation', inplace=True)
+        health_dict_color = {
+            'sleep': '#289df9',
+            'nutrition': '#00FF00',
+            'fitness': '#faa200',
+            'meditation': '#ff0000'
+        }
+        health_awareness['ColorCode'] = health_awareness['Type'].map(health_dict_color)
         health_awareness.sort_values(by=['UserID'],ascending=False,inplace=True)
         health_awareness= health_awareness.reset_index(drop=True)
         return health_awareness.to_json()
 
     except Exception as exc:
         print(exc)
+
