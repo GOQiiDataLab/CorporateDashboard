@@ -69,8 +69,9 @@ def decrypt_message(encrypted_message):
     key = load_key()
     f = Fernet(key)
     decrypted_message = f.decrypt(encrypted_message)
-
-    print(decrypted_message.decode())
+    dec_msg =decrypted_message.decode()
+    print(dec_msg)
+    return dec_msg
 
 if __name__ == "__main__":
     #encrypt_message("encrypt this message")

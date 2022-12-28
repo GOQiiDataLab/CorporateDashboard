@@ -15,6 +15,7 @@ from flask import jsonify
 
 # init app
 app = Flask(__name__)
+import codecs
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -57,11 +58,13 @@ def getdata():
                    }
     main_return = json.dumps(main_return)
     if args == 'f':
-        res = {"data": ((main_return))}
-    else :
+        res = {"data": main_return}
+
+    else:
         res = {"data": (enc_dec_demo.encrypt_message(main_return))}
+
     print(res)
-   # str(enc_dec_demo.encrypt_message(main_return))
+    # str(enc_dec_demo.encrypt_message(main_return))
     res = make_response(res, 200)
     res.headers['Access-Control-Allow-Origin'] = "*"
     return res
@@ -81,6 +84,25 @@ def user_information():
     }
 
     return main_return
+
+
+@app.route('/posttest', methods=['POST'])
+def postTest():
+    data = request.data
+    # print(data.data)
+    d = codecs.decode(data, 'UTF-8')
+    # (json.loads(d))['data']
+    # res = {"data": enc_dec_demo.decrypt_message((json.loads(d))['data'])}
+    res = enc_dec_demo.decrypt_message((json.loads(d))['data'])
+    res = json.dumps(res)
+    res = {"data": res}
+
+    print(res)
+    res = make_response(res, 200)
+    res.headers['Access-Control-Allow-Origin'] = "*"
+    res.headers['Content-Type'] = "application/json"
+
+    return res
 
 
 if __name__ == '__main__':
