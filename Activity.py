@@ -37,6 +37,7 @@ def activity():
 
         activity_time = str(np.round(dataframe['Duration_Hours'].sum(), 0))
         top_activities = dataframe.groupby('Activity_Name').agg({'Number_Of_Times_Activity_Done': 'sum'})['Number_Of_Times_Activity_Done'].nlargest(5).reset_index()
+        top_activities['Activity_Name'] = top_activities['Activity_Name'].str.capitalize()
 
         return activity_time, top_activities.to_json()
 

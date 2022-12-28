@@ -4,3 +4,4 @@ PyYAML
 Pandas
 pymysql
 cryptography
+numpy
