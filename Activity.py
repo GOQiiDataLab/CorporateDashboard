@@ -35,7 +35,7 @@ def activity():
         dataframe = pd.DataFrame(data=ready_data, columns=['UserID', 'Activity_Name',
                                 'Number_Of_Times_Activity_Done', 'Duration', 'Duration_Hours'])
 
-        activity_time = str(np.round(dataframe['Duration_Hours'].sum(), 0)) + ' hrs'
+        activity_time = str(np.round(dataframe['Duration_Hours'].sum(), 0))
         top_activities = dataframe.groupby('Activity_Name').agg({'Number_Of_Times_Activity_Done': 'sum'})['Number_Of_Times_Activity_Done'].nlargest(5).reset_index()
 
         return activity_time, top_activities.to_json()
