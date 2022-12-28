@@ -8,7 +8,7 @@ def water_intake():
 
         query1 = '''
                 SELECT
-                    CONCAT(ROUND(SUM(Amount),0),' ltrs') AS Water_Card,
+                    CONCAT(ROUND(SUM(Amount),0)) AS Water_Card,
                     ROUND(AVG(Amount),2) AS Water_Intake_KPI
                 FROM
                     (
