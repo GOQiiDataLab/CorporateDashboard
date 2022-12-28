@@ -21,7 +21,7 @@ def hra():
         cursor.execute(query1)
         ready_data = cursor.fetchall()
 
-        return ready_data[0][0]
+        return str(ready_data[0][0])
 
     except Exception as exc:
         print(exc)

@@ -3,3 +3,4 @@ Flask-Cors==3.0.9
 PyYAML
 Pandas
 pymysql
+cryptography
