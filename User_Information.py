@@ -45,6 +45,8 @@ def user_information():
         player_count = dataframe.shape[0]
         most_active_players = dataframe.nlargest(3, 'Rolling_Points')[['User_Image', 'Player_Name', 'Lifestyle']]
         lifestyle_players = dataframe.groupby('Lifestyle')['UserID'].count().reset_index()
+        lifestyle_players.sort_values(by=['UserID'], ascending=False, inplace=True)
+        lifestyle_players = lifestyle_players.reset_index(drop=True)
         active_24_hours = dataframe[dataframe['Last_Active_Date'] >
                     np.datetime64(datetime.datetime.now().date()-pd.to_timedelta(1, unit='d'))]['UserID'].count()
         new_elites = dataframe[dataframe['Lifestyle'] == 'elite'].nlargest(3, 'Lifestyle_Change_Date')[['User_Image', 'Player_Name', 'Lifestyle', 'Clan_Name', 'Lifestyle_Change_Date']]
