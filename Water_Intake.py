@@ -1,4 +1,5 @@
 import Database
+import numpy as np
 
 
 def water_intake():
@@ -35,7 +36,7 @@ def water_intake():
         cursor.execute(query1)
         ready_data = cursor.fetchall()
 
-        return ready_data[0][0], str(ready_data[0][1])
+        return ready_data[0][0], str(np.round_(float(ready_data[0][1]), 1))
 
     except Exception as exc:
         print(exc)

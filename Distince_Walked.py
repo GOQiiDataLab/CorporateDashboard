@@ -65,7 +65,7 @@ def distance_walked():
         (dataframe['Log Date'] >= np.datetime64(datetime.datetime.now().date() - pd.to_timedelta(2, unit='w')))
         & (dataframe['Log Date'] < np.datetime64(datetime.datetime.now().date() - pd.to_timedelta(1, unit='w')))]['UserID'].nunique(), 2)
 
-        return str(steps) , str(avg_steps), str(avg_steps_last_week), \
+        return str(steps), str(np.round(avg_steps, 1)), str(np.round(avg_steps_last_week, 1)), \
                km_walked_week_over_week.to_json(), steps_distribution.to_json()
 
     except Exception as exc:

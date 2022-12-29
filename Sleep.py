@@ -74,18 +74,18 @@ def sleep():
         sleep_quality = pd.DataFrame(data=ready_data, columns=['sleepObservation', 'user_count'])
 
         duration = dataframe['Sleep Duration'].mean() * 60
-        hours = duration / 3600
-        minutes = ((duration-(hours*3600)) % 3600)/60
+        hours = int(duration / 3600)
+        minutes = int(((duration-(hours*3600))%3600)/60)
 
-        if len(str(int(hours))) == 1:
-            h = "0" + str(str(int(hours)))
+        if len(str(hours)) == 1:
+            h = "0" + str(hours)
         else:
-            h = hours
+            h = str(hours)
 
-        if len(str(int(minutes))) == 1:
-            m = "0" + str(str(int(minutes)))
+        if len(str(minutes)) == 1:
+            m = "0" + str(minutes)
         else:
-            m = minutes
+            m = str(minutes)
 
         # sleep_quality_dict = {}
         # for i in range(len(sleep_quality)):
@@ -93,7 +93,7 @@ def sleep():
         #
         # return (h + "h" + " " + m + "m"), json.dumps(sleep_quality_dict)
 
-        return (h + "h" + " " + m + "m"), sleep_quality.to_json()
+        return (h + " " + m), sleep_quality.to_json()
 
     except Exception as exc:
         print(exc)

@@ -11,11 +11,11 @@ import HealthAwareness
 import Food
 import json
 import enc_dec_demo
+import codecs
 from flask import jsonify
 
 # init app
 app = Flask(__name__)
-import codecs
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -63,7 +63,6 @@ def getdata():
     else:
         res = {"data": (enc_dec_demo.encrypt_message(main_return))}
 
-    print(res)
     # str(enc_dec_demo.encrypt_message(main_return))
     res = make_response(res, 200)
     res.headers['Access-Control-Allow-Origin'] = "*"
@@ -76,8 +75,8 @@ def user_information():
 
     main_return = {
         'player_count': player_count,
-        'top_active_players': top_active_players
-        , 'lifestyle_players': lifestyle_players,
+        'top_active_players': top_active_players,
+        'lifestyle_players': lifestyle_players,
         'active_24_hours': active_24_hours,
         'new_elites': new_elites,
         'consistent_elites': consistent_elites
@@ -107,9 +106,4 @@ def postTest():
 
 if __name__ == '__main__':
     # app.run(debug=True)
-    app.run(debug=True, host='0.0.0.0', port=81
-            )
-
-# Things let to code:
-# 2. Quality of nutrition
-# 4. Average Sleep Score correction
+    app.run(debug=True, host='0.0.0.0', port=81)

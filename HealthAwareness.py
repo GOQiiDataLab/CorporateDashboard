@@ -1,6 +1,5 @@
 import Database
 import pandas as pd
-import numpy as np
 
 
 def health():
@@ -43,9 +42,11 @@ def health():
             'meditation': '#ff0000'
         }
         health_awareness['ColorCode'] = health_awareness['Type'].map(health_dict_color)
-        health_awareness.sort_values(by=['UserID'],ascending=False,inplace=True)
-        health_awareness= health_awareness.reset_index(drop=True)
-        return health_awareness.to_json()
+        health_awareness.sort_values(by=['UserID'], ascending=False, inplace=True)
+        health_awareness = health_awareness.reset_index(drop=True)
+        health_awareness['Type'] = health_awareness['Type'].str.capitalize()
+
+        return health_awareness
 
     except Exception as exc:
         print(exc)
