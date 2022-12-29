@@ -46,7 +46,7 @@ def health():
         health_awareness = health_awareness.reset_index(drop=True)
         health_awareness['Type'] = health_awareness['Type'].str.capitalize()
 
-        return health_awareness
+        return health_awareness.to_json()
 
     except Exception as exc:
         print(exc)

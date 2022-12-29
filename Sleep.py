@@ -93,7 +93,7 @@ def sleep():
         #
         # return (h + "h" + " " + m + "m"), json.dumps(sleep_quality_dict)
 
-        return (h + " " + m), sleep_quality.to_json()
+        return (h + ":" + m), sleep_quality.to_json()
 
     except Exception as exc:
         print(exc)
