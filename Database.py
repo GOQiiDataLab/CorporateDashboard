@@ -1,8 +1,9 @@
 import pymysql
 import json
 
-with open('Credetials.json','r') as f:
+with open('Credetials.json', 'r') as f:
     data = json.load(f)
+
 
 def database():
 
