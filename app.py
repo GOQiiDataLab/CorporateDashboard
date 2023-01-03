@@ -35,7 +35,7 @@ def getdata():
     habits = Habits.habits()
     avg_sleep, sleep_quality = Sleep.sleep()
     hra = HRA.hra()
-    karma = Karma.karma()
+    karma = str(Karma.karma())
     player_count, top_active_players, lifestyle_players, active_24_hours, new_elites, \
     consistent_elites, clan_player_count, best_performing_clan, \
     under_performing_clan = User_Information.user_information()
