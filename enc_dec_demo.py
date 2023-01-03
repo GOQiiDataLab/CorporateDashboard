@@ -47,14 +47,14 @@ def encrypt_message(message):
     """
     Encrypts a message
     """
-    print(message)
+    #print(message)
     key = load_key()
     #encoded_message = message.encode()
     encoded_message = str(message).encode()
     f = Fernet(key)
     encrypted_message = f.encrypt(encoded_message)
 
-    print(type(encrypted_message))
+    #print(type(encrypted_message))
     return codecs.decode(encrypted_message, 'UTF-8')
     #a =(codecs.decode(encrypted_message, 'UTF-8'))
 

@@ -1,3 +1,5 @@
+import json
+
 import Database
 import pandas as pd
 import numpy as np
@@ -49,6 +51,9 @@ def user_information():
                 lifestyle_players[i] = dataframe[dataframe['Lifestyle'] == i]['UserID'].count()
             else:
                 lifestyle_players[i] = 0
+        lifestyle_players = pd.DataFrame.from_dict(lifestyle_players, orient="index").reset_index()
+        lifestyle_players.columns = ['Lifestyle','UserID']
+        lifestyle_players.Lifestyle = lifestyle_players.Lifestyle.str.capitalize()
 
         player_count = dataframe.shape[0]
 
@@ -72,7 +77,7 @@ def user_information():
 
         under_performing_clan = elite_perc[elite_perc['UserID'] == elite_perc['UserID'].min()].values[0][0]
 
-        return str(player_count), most_active_players.to_json(), lifestyle_players, str(active_24_hours), \
+        return str(player_count), most_active_players.to_json(), lifestyle_players.to_json(), str(active_24_hours), \
                new_elites.to_json(), consistent_elites.to_json(), clan_player_count.to_json(), \
                best_performing_clan, under_performing_clan
 
