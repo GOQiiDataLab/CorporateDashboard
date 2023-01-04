@@ -39,7 +39,7 @@ def health():
             'sleep': '#289df9',
             'nutrition': '#00FF00',
             'fitness': '#faa200',
-            'meditation': '#ff0000'
+            'meditation': '#9700ff'
         }
         health_awareness['ColorCode'] = health_awareness['Type'].map(health_dict_color)
         health_awareness.sort_values(by=['UserID'], ascending=False, inplace=True)
